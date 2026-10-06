@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#db9eac">
+  <meta name="description" content="Barbie Mirror is a virtual outfit preview concept. Explore how a smart mirror can help you picture a look before changing clothes.">
+  <title>Barbie Mirror — your look your way</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23e9b2be'/%3E%3Crect x='18' y='9' width='28' height='46' rx='14' fill='none' stroke='%236d463a' stroke-width='4'/%3E%3Cpath d='M25 34c5-6 9-6 14 0' fill='none' stroke='%236d463a' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{color-scheme:light;--rose:#d997a8;--paper:#fbf5ef;--pink:#eac0ca;--pink2:#f4dce0;--brown:#513b32;--ink:#4a3932;--line:#c9aab0}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",Arial,sans-serif;font-size:16px;line-height:1.6}a{color:inherit}button{font:inherit}img{max-width:100%;display:block}
+    .skip{position:absolute;left:-9999px;top:4px;background:white;z-index:10}.skip:focus{left:4px}
+    .topbar{background:#f8e3e4;border-bottom:1px solid #d7b7bd;padding:9px 22px;text-align:center;font-size:.8rem;letter-spacing:.19em;text-transform:uppercase;color:#634f45}
+    header{background:#f5e2e3;position:relative;z-index:2;border-bottom:1px solid rgba(99,70,62,.22)}
+    .nav{max-width:1440px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:20px 5%;gap:25px}
+    .brand{font:600 1.7rem "Playfair Display",Georgia,serif;text-decoration:none;letter-spacing:-.045em;white-space:nowrap;color:var(--brown)}
+    .brand span{font-style:italic;font-weight:400}.navlinks{display:flex;gap:36px;align-items:center}.navlinks a{text-decoration:none;font-size:.86rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.navlinks a:hover,.navlinks a:focus-visible{text-decoration:underline;text-underline-offset:6px}
+    .nav-cta{border:1px solid var(--brown);padding:10px 18px;border-radius:100px}.menu{display:none}
+    .hero{display:grid;grid-template-columns:minmax(0,45%) minmax(0,55%);min-height:690px;background:linear-gradient(90deg,#e3aeba,#f0cbd2 45%,#efe5dc 45%,#faf2e9)}
+    .hero-copy{align-self:center;padding:75px 6% 80px max(8%,calc((100vw - 1280px)/2));position:relative}
+    .eyebrow{font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:#665044}
+    h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:"Playfair Display",Georgia,serif;color:var(--brown);font-weight:500}
+    h1{font-size:clamp(4.3rem,7.6vw,8.6rem);line-height:.93;letter-spacing:-.07em;margin:28px 0 32px}
+    h1 em{font-weight:400}.hero-copy>p:not(.eyebrow){max-width:440px;font-size:1.15rem;line-height:1.55}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:11px 24px;border:1px solid var(--brown);border-radius:99px;background:var(--brown);color:#fff8f5;text-decoration:none;font-size:.83rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:transform .2s,background .2s}
+    .button:hover,.button:focus-visible{transform:translateY(-2px);background:#79534b}.button.ghost{background:transparent;color:var(--brown)}.button.ghost:hover{background:#fff7f2}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+    .hero-art{position:relative;min-height:630px;overflow:hidden;background:#f7ece5}.hero-art img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.91)}.hero-art:after{content:"A LOOK BEFORE THE LOOK";position:absolute;bottom:23px;right:25px;background:rgba(251,245,239,.9);padding:8px 14px;letter-spacing:.22em;font-size:.7rem;font-weight:700;color:#5d4a3f}
+    .ribbon{font-size:2rem;line-height:1;color:#70554e;margin-top:32px;opacity:.75}
+    .intro{max-width:1200px;margin:auto;padding:110px 5%;display:grid;grid-template-columns:1fr 1.1fr;gap:12%}.intro h2{font-size:clamp(2.5rem,4.2vw,4.8rem);line-height:1.08;letter-spacing:-.055em;margin:20px 0}.intro p{font-size:1.1rem;max-width:560px}.rule{height:1px;background:#b89796;margin:25px 0}
+    .journey{background:#f8e9e6;padding:95px 5% 100px;overflow:hidden}.journey-top{display:flex;align-items:end;justify-content:space-between;gap:30px}.journey h2{font-size:clamp(2.8rem,5vw,5.3rem);line-height:1.05;letter-spacing:-.055em;margin:14px 0 12px}.journey-top>p{max-width:335px;margin:0 0 14px}.journey-board{position:relative;margin-top:52px}.journey-rail{position:absolute;top:27px;left:12.5%;width:75%;height:2px;background:#bfa7a2}.journey-rail span{display:block;width:0;height:100%;background:#734d4b;transition:width .6s ease}.journey-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;position:relative}.journey-list li{min-width:0}.journey-step{width:100%;min-height:235px;text-align:left;border:1px solid transparent;background:transparent;color:var(--brown);padding:0 16px 24px;cursor:pointer;transition:background .35s ease,transform .35s ease,border-color .35s ease}.journey-step:hover{background:#fff4f0}.journey-step:focus-visible{outline:3px solid #8c5a69;outline-offset:3px}.journey-step[aria-current="step"]{background:#fff8f3;border-color:#caa8a9;transform:translateY(-5px);box-shadow:9px 9px 0 rgba(114,74,72,.09)}.journey-node{width:55px;height:55px;border:1px solid #795956;border-radius:50%;display:grid;place-items:center;background:#f8e9e6;font:1.4rem "Playfair Display",Georgia,serif;position:relative;z-index:1;margin:0 auto 30px;transition:background .35s,color .35s,transform .35s}.journey-step[aria-current="step"] .journey-node{background:#734d4b;color:#fff9f5;transform:scale(1.1)}.journey-step strong{display:block;font:500 clamp(1.45rem,2.2vw,2rem) "Playfair Display",Georgia,serif;line-height:1.15;margin-bottom:12px}.journey-step .detail{display:block;font-size:.95rem;line-height:1.45}.journey-status{display:flex;align-items:center;justify-content:space-between;gap:22px;border-top:1px solid #bfa7a2;padding-top:24px;margin-top:12px}.journey-status p{margin:0;font:1.1rem "Playfair Display",Georgia,serif}.journey-status button{background:transparent;border:1px solid #795956;border-radius:99px;color:var(--brown);padding:9px 18px;cursor:pointer;white-space:nowrap}.journey-status button:focus-visible{outline:3px solid #8c5a69;outline-offset:3px}
+    .process{background:#e8bac4;padding:92px 5% 100px}.wrap{max-width:1260px;margin:auto}.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:45px}.section-head h2{font-size:clamp(2.7rem,5vw,5.5rem);line-height:1;letter-spacing:-.055em;margin:12px 0 0}.section-head p{max-width:335px;margin:0}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #8e6d69;border-bottom:1px solid #8e6d69}.step{padding:37px 34px 40px 0;min-height:285px}.step+.step{border-left:1px solid #8e6d69;padding-left:34px}.step .number{font:400 3.5rem "Playfair Display",serif;color:#fff4ec;line-height:1}.step h3{font-size:2.2rem;line-height:1.1;margin:30px 0 18px}.step p{max-width:295px;margin:0}
+    .lookbook{padding:106px 5% 110px;background:#faf4ef}.lookbook-grid{display:grid;grid-template-columns:1fr 1fr;gap:7%;align-items:center}.lookbook h2{font-size:clamp(2.7rem,5vw,5.4rem);line-height:1.04;letter-spacing:-.06em;margin:20px 0 24px}.lookbook-copy>p{max-width:470px}.look-art{background:linear-gradient(135deg,#e8b6c1,#f7e4e2);border:1px solid #cfafb5;min-height:500px;padding:36px;display:flex;align-items:center;justify-content:center}.look-card{background:#fff9f3;border:1px solid #b99c94;width:min(100%,380px);min-height:420px;padding:36px;box-shadow:18px 18px 0 rgba(103,68,69,.11);display:flex;flex-direction:column;justify-content:space-between;text-align:center}.look-card .small{font-size:.74rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase}.look-card .garment{font:400 clamp(3.2rem,7vw,6rem) "Playfair Display",serif;line-height:1.1;color:#a86679;letter-spacing:-.08em}.look-card .note{font-size:.96rem}.look-controls{display:flex;gap:9px;flex-wrap:wrap;margin:30px 0 12px}.look-controls button{background:transparent;border:1px solid #9a7880;border-radius:99px;padding:10px 18px;cursor:pointer;color:var(--brown);font-size:.85rem}.look-controls button[aria-pressed="true"]{background:var(--brown);color:white}.look-controls button:focus-visible{outline:3px solid #af7285;outline-offset:3px}.demo-note{font-size:.82rem;color:#765f59}
+    .shop{padding:90px 5% 105px;background:#f3dfe0}.shop h2{font-size:clamp(2.8rem,5vw,5rem);letter-spacing:-.06em;line-height:1.05;margin:12px 0 24px}.shop-lead{max-width:650px;margin-bottom:40px}
+    .products{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.product{border:1px solid #be9e9f;background:#fdf7f2;padding:24px;min-height:285px;display:flex;flex-direction:column;justify-content:space-between}.product .product-mark{font:400 4.6rem "Playfair Display",serif;line-height:1;color:#c28594}.product h3{font-size:1.65rem;margin:18px 0 2px}.product p{font-size:.92rem;margin:0}.product .sample{font-size:.74rem;text-transform:uppercase;letter-spacing:.14em;font-weight:700;border-top:1px solid #d4b8b7;margin-top:18px;padding-top:15px}
+    footer{background:#634946;color:#fbeee9;padding:70px 5% 30px}footer .wrap{display:flex;justify-content:space-between;gap:40px;align-items:end}footer h2{color:#fbeee9;font-size:clamp(2.8rem,6vw,6rem);line-height:1;letter-spacing:-.055em;margin:0 0 15px}footer p{max-width:390px;margin:0}footer a{color:#fbeee9;text-underline-offset:5px}.footline{max-width:1260px;margin:60px auto 0;padding-top:20px;border-top:1px solid #b39794;display:flex;justify-content:space-between;gap:15px;font-size:.8rem}
+    @media(max-width:850px){.navlinks{gap:16px}.navlinks a{font-size:.75rem}.hero{grid-template-columns:1fr}.hero-copy{padding:65px 7% 55px}.hero-art{min-height:560px}.intro{gap:6%}.journey-list{gap:6px}.journey-step{padding:0 9px 18px}.journey-step .detail{font-size:.85rem}.step{padding-right:17px}.step+.step{padding-left:17px}.step h3{font-size:1.8rem}}
+    @media(max-width:620px){.topbar{font-size:.66rem;letter-spacing:.12em}.nav{padding:16px 5%;align-items:flex-start;flex-wrap:wrap}.brand{font-size:1.55rem}.menu{display:block;border:1px solid var(--brown);background:transparent;border-radius:20px;padding:5px 12px;color:var(--brown)}.navlinks{display:none;width:100%;flex-direction:column;align-items:stretch;gap:0;padding-top:12px}.navlinks.open{display:flex}.navlinks a{padding:12px 0;font-size:.8rem}.nav-cta{border:0;border-radius:0}.hero{min-height:auto}.hero-copy{padding:55px 6%}.hero h1{font-size:clamp(4rem,18vw,6rem)}.hero-art{min-height:410px}.intro{grid-template-columns:1fr;padding:75px 6%;gap:16px}.journey,.process,.lookbook,.shop{padding:72px 6%}.journey-top,.section-head{display:block}.journey-top>p,.section-head p{margin-top:22px}.journey-board{margin-top:30px}.journey-rail{top:18px;bottom:18px;left:21px;width:2px;height:auto}.journey-rail span{width:100%;height:0;transition:height .6s ease}.journey-list{grid-template-columns:1fr;gap:8px}.journey-step{min-height:0;display:grid;grid-template-columns:48px 1fr;column-gap:14px;padding:12px 14px}.journey-node{width:44px;height:44px;grid-row:span 2;margin:0;font-size:1.2rem}.journey-step strong{font-size:1.55rem;margin:0 0 4px}.journey-step .detail{font-size:.95rem;grid-column:2}.journey-status{align-items:flex-start}.journey-status p{font-size:.95rem}.steps,.products,.lookbook-grid{grid-template-columns:1fr}.step{min-height:auto;padding:26px 0 32px}.step+.step{border-left:0;border-top:1px solid #8e6d69;padding:26px 0 32px}.step h3{margin:12px 0}.lookbook-grid{gap:35px}.look-art{min-height:430px;padding:23px}.look-card{min-height:370px}.products{gap:12px}footer .wrap{display:block}footer .button{margin-top:28px}.footline{display:block}.footline span{display:block;margin-bottom:5px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button,.journey-step,.journey-node,.journey-rail span{transition:none}}
+  
+.look-art{padding:16px;min-height:0;display:block}.look-card{width:100%;min-height:0;padding:0;display:block;margin:0;box-shadow:10px 10px 0 rgba(103,68,69,.09)}.look-photo{width:100%;height:auto;aspect-ratio:4/5;object-fit:contain;background:#fbf5ef}.look-caption{padding:18px 20px 22px}.look-card .garment{font-size:2rem;line-height:1.15;letter-spacing:-.045em;margin:5px 0 8px}.look-card .note{display:block;font-size:.9rem}.look-card .small{font-size:.75rem}
+
+.brand img{width:112px;height:102px;object-fit:contain;background:#fff;border:1px solid #dfc9c6;padding:5px}.nav{padding-top:12px;padding-bottom:12px}.hero h1{font-size:clamp(3.8rem,6.7vw,7rem)}.hero-art img{width:100%;height:100%;max-height:860px;object-fit:contain}.hero-art{background:#f4e9e1}.product-intro{padding:94px 5%;background:#f7ece7}.product-visual{margin:0;background:#fff8f1;border:1px solid #c9aaa4;padding:14px;box-shadow:12px 12px 0 #e7d1cd}.product-visual img{width:100%;height:auto}.product-tags{display:grid;grid-template-columns:2fr 1fr;border-top:1px solid #d2b8b1;padding:14px 0 4px;font-size:.875rem;letter-spacing:.06em;text-align:center}.product-visual figcaption{text-align:center;color:#7d6960;font-size:.75rem;margin:8px 0}.hardware-details{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding:0;margin:48px 0 0}.hardware-details li{display:flex;gap:14px}.hardware-number{font:2rem 'Playfair Display',Georgia,serif;color:#ad7485}.hardware-details h3{font:1.55rem 'Playfair Display',Georgia,serif;margin:0 0 12px}.hardware-details p{margin:0;font-size:.95rem}.look-stage{position:relative;aspect-ratio:4/5;overflow:hidden;background:#f3e7de}.look-stage .look-photo{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .8s ease;object-fit:contain}.look-stage .is-visible{opacity:1}.style-play{border:0;border-bottom:1px solid #937173;background:transparent;color:var(--brown);padding:9px 0;cursor:pointer;font-size:.85rem}.style-play:focus-visible{outline:3px solid #af7285;outline-offset:4px}.footer-logo{width:138px;height:auto;background:#fff;padding:8px;margin-bottom:20px}footer .footer-slogan{font-size:clamp(2.5rem,5vw,5rem);max-width:700px}
+@media(max-width:850px){.navlinks{gap:14px}.navlinks a{letter-spacing:.06em}.hero-art img{max-height:750px}.hardware-details{grid-template-columns:1fr;gap:24px}}
+@media(max-width:620px){.brand img{width:83px;height:77px}.product-intro{padding:72px 6%}.product-visual{padding:7px;box-shadow:7px 7px 0 #e7d1cd}.product-tags{font-size:.875rem;gap:12px}.hero h1{font-size:clamp(3.5rem,16vw,6rem)}.hero-art{min-height:0;padding:16px}.hero-art img{height:auto}.look-stage .look-photo{transition-duration:.6s}.hardware-details{margin-top:32px}}
+@media(prefers-reduced-motion:reduce){.look-stage .look-photo{transition:none}}
+
+</style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">your look your way</div>
+  <header>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Barbie Mirror home"><img src="assets/brand-logo.jpg" alt="Barbie Mirror" width="1067" height="985"></a>
+      <button class="menu" type="button" aria-expanded="false" aria-controls="navlinks">Menu</button>
+      <div class="navlinks" id="navlinks">
+        <a href="#product">The mirror</a><a href="#journey">How to use</a><a href="#looks">Explore looks</a><a class="nav-cta" href="#collection">The collection</a>
+      </div>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">A virtual fitting mirror concept</p>
+        <h1 id="hero-title">your look<br><em>your way</em></h1>
+        <p>Picture a new outfit on yourself before you change. Barbie Mirror brings the fitting room to your screen.</p>
+        <div class="hero-actions"><a class="button" href="#journey">See how it works</a><a class="button ghost" href="#looks">Explore looks</a></div>
+        <div class="ribbon" aria-hidden="true">✧</div>
+      </div>
+      <div class="hero-art"><img src="assets/look-rose.webp" alt="User in a white top and jeans sees herself in a pink dress on the smart mirror display" width="1122" height="1402"></div>
+    </section>
+    <section class="intro" id="idea">
+      <div><p class="eyebrow">The idea</p><h2>A little magic in the mirror.</h2></div>
+      <div><div class="rule"></div><p>Choosing an outfit should feel playful. Our smart mirror concept helps you explore clothes on a live image of yourself, compare looks, and find the pieces you love.</p><p>A camera above the mirror captures your full body. A computer built into the mirror processes the image and shows your selected outfit on the display. Your real clothes stay the same.</p></div>
+    </section>
+    <section class="product-intro" id="product" aria-labelledby="product-title">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">Meet the mirror</p><h2 id="product-title">Beauty outside.<br>Brains inside.</h2></div><p>A full-body preview, powered by a computer built into the mirror.</p></div>
+        <figure class="product-visual"><img src="assets/product-inside.webp" alt="Front view: top-mounted camera captures a full-body user while the mirror shows a pink dress. Rear view: an open panel reveals the computer integrated inside the mirror." width="1536" height="1024" loading="lazy"><div class="product-tags"><span>Front · virtual outfit preview</span><span>Back · built-in computer</span></div><figcaption>Product concept illustration · front and rear views</figcaption></figure>
+        <ol class="hardware-details">
+          <li><span class="hardware-number">01</span><div><h3>Camera above the mirror</h3><p>The top-mounted camera captures the user from head to toe.</p></div></li>
+          <li><span class="hardware-number">02</span><div><h3>Built-in computer</h3><p>Inside the mirror, the computer processes the image, tracks the body, and adds the selected outfit.</p></div></li>
+          <li><span class="hardware-number">03</span><div><h3>Your look on the display</h3><p>The mirror shows the virtual outfit on your image. You can explore styles without changing your clothes.</p></div></li>
+        </ol>
+      </div>
+    </section>
+    <section class="journey" id="journey" aria-labelledby="journey-title">
+      <div class="wrap">
+        <div class="journey-top"><div><p class="eyebrow">The proposed experience</p><h2 id="journey-title">Your fitting journey</h2></div><p>Follow the four steps to see how a visit to Barbie Mirror would feel.</p></div>
+        <div class="journey-board">
+          <div class="journey-rail" aria-hidden="true"><span></span></div>
+          <ol class="journey-list">
+            <li><button class="journey-step" type="button" aria-current="step"><span class="journey-node" aria-hidden="true">1</span><strong>Step in</strong><span class="detail">Stand in front of the camera to see yourself on screen.</span></button></li>
+            <li><button class="journey-step" type="button"><span class="journey-node" aria-hidden="true">2</span><strong>Pick a piece</strong><span class="detail">Browse the collection and choose a look to try.</span></button></li>
+            <li><button class="journey-step" type="button"><span class="journey-node" aria-hidden="true">3</span><strong>See the look</strong><span class="detail">The mirror places a clothing image over your live view.</span></button></li>
+            <li><button class="journey-step" type="button"><span class="journey-node" aria-hidden="true">4</span><strong>Compare & explore</strong><span class="detail">Compare outfits and open the product details you like.</span></button></li>
+          </ol>
+        </div>
+        <div class="journey-status"><p>Step <span id="journey-count">1</span> of 4: <span id="journey-label">Step in</span></p><button id="journey-toggle" type="button" aria-label="Pause animated flow">Pause animation</button></div>
+      </div>
+    </section>
+    <section class="process" id="how">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">Behind the mirror</p><h2>How it works</h2></div><p>Three simple steps turn a camera view into a virtual outfit preview.</p></div>
+        <div class="steps">
+          <div class="step"><span class="number">01</span><h3>Capture</h3><p>The camera above the mirror captures a live, full-body image of the user.</p></div>
+          <div class="step"><span class="number">02</span><h3>Track</h3><p>The built-in computer processes the image and locates key body positions, including the shoulders and waist.</p></div>
+          <div class="step"><span class="number">03</span><h3>Preview</h3><p>The selected outfit appears on the mirror display. The user’s real clothes stay unchanged.</p></div>
+        </div>
+      </div>
+    </section>
+    <section class="lookbook" id="looks">
+      <div class="wrap lookbook-grid">
+        <div class="lookbook-copy"><p class="eyebrow">Style notes</p><h2>Which look feels like you?</h2><p>One person. Three possibilities. Choose a style and watch the outfit change inside the mirror—while the clothes outside stay the same.</p>
+          <div class="look-controls" role="group" aria-label="Choose a sample look">
+            <button type="button" data-look="rose" aria-pressed="true">Rose daydream</button>
+            <button type="button" data-look="denim" aria-pressed="false">Denim muse</button>
+            <button type="button" data-look="evening" aria-pressed="false">Evening ribbon</button>
+          </div><button class="style-play" id="style-play" type="button" aria-pressed="false">Play style preview</button><p class="demo-note">Illustrated try-on preview · select a style to switch looks.</p>
+        </div>
+        <div class="look-art"><figure class="look-card"><div class="look-stage" aria-label="Virtual fitting mirror preview">
+          <img class="look-photo is-visible" data-photo="rose" src="assets/look-rose.webp" alt="User stays in a white top and jeans; only the mirror display shows a pink dress" width="1122" height="1402" loading="lazy">
+          <img class="look-photo" data-photo="denim" src="assets/look-denim.webp" alt="User stays in a white top and jeans; only the mirror display shows a denim jacket and jeans" width="1122" height="1402" loading="lazy" aria-hidden="true">
+          <img class="look-photo" data-photo="evening" src="assets/look-evening.webp" alt="User stays in a white top and jeans; only the mirror display shows a plum satin dress" width="1122" height="1402" loading="lazy" aria-hidden="true">
+          </div><figcaption class="look-caption" aria-live="polite"><span class="small">ON THE MIRROR DISPLAY</span><div class="garment" id="look-name">Rose daydream</div><span class="note" id="look-note">A soft pink dress, shown only on your mirror image.</span></figcaption></figure></div>
+      </div>
+    </section>
+    <section class="shop" id="collection">
+      <div class="wrap"><p class="eyebrow">From preview to product</p><h2>Find the pieces</h2><p class="shop-lead">When the collection is connected, each outfit preview can lead to the clothing details and its product page. These sample pieces show how that section could look.</p>
+        <div class="products">
+          <article class="product"><div class="product-mark" aria-hidden="true">01</div><div><h3>The blush dress</h3><p>Soft pink with a romantic silhouette.</p><div class="sample">Sample product · link coming soon</div></div></article>
+          <article class="product"><div class="product-mark" aria-hidden="true">02</div><div><h3>The denim layer</h3><p>A light blue staple for everyday styling.</p><div class="sample">Sample product · link coming soon</div></div></article>
+          <article class="product"><div class="product-mark" aria-hidden="true">03</div><div><h3>The ribbon edit</h3><p>A little detail that changes the whole look.</p><div class="sample">Sample product · link coming soon</div></div></article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap"><div><img class="footer-logo" src="assets/brand-logo.jpg" alt="Barbie Mirror logo" width="1067" height="985" loading="lazy"><h2 class="footer-slogan">your look your way</h2><p>Try a new look. Stay yourself.</p></div><a class="button ghost" href="#top" style="border-color:#fbeee9;color:#fbeee9">Back to top</a></div><div class="footline"><span>© <span id="year">2026</span> Barbie Mirror</span><span>Virtual fitting mirror concept</span></div></footer>
+  <script>
+    const menu=document.querySelector('.menu'), links=document.querySelector('.navlinks');
+    menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));links.classList.toggle('open',open)});
+    links.addEventListener('click',e=>{if(e.target.closest('a')){links.classList.remove('open');menu.setAttribute('aria-expanded','false')}});
+    const looks={rose:{name:'Rose daydream',image:'assets/look-rose.webp',alt:'Blonde fashion doll wearing a blush pink dress beside an ornate mirror',note:'A soft pink dress, shown only on your mirror image.',tone:'#a86679',bg:'linear-gradient(135deg,#e8b6c1,#f7e4e2)'},denim:{name:'Denim muse',image:'assets/look-denim.webp',alt:'Blonde fashion doll wearing a blue denim jacket and jeans beside an ornate mirror',note:'A denim jacket and jeans, shown only on your mirror image.',tone:'#69869c',bg:'linear-gradient(135deg,#b6c8d6,#f2e9e4)'},evening:{name:'Evening ribbon',image:'assets/look-evening.webp',alt:'Blonde fashion doll wearing a plum satin dress with a ribbon beside an ornate mirror',note:'A plum satin dress, shown only on your mirror image.',tone:'#755064',bg:'linear-gradient(135deg,#d6b7c5,#f0e5e6)'}};
+    const styleButtons=[...document.querySelectorAll('[data-look]')], stylePhotos=[...document.querySelectorAll('[data-photo]')], stylePlay=document.getElementById('style-play');
+    let currentLook='rose', lookRequest=0, stylePlaying=false, styleTimer=null, styleVisible=false;
+    async function selectLook(key){
+      const request=++lookRequest, photo=stylePhotos.find(image=>image.dataset.photo===key), look=looks[key];
+      try{await photo.decode()}catch(error){if(!photo.naturalWidth)return}
+      if(request!==lookRequest)return;
+      currentLook=key;
+      stylePhotos.forEach(image=>{const active=image===photo;image.classList.toggle('is-visible',active);image.setAttribute('aria-hidden',String(!active))});
+      styleButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.look===key)));
+      document.getElementById('look-name').textContent=look.name;
+      document.getElementById('look-name').style.color=look.tone;
+      document.getElementById('look-note').textContent=look.note;
+      document.querySelector('.look-art').style.background=look.bg;
+    }
+    function syncStylePreview(){clearInterval(styleTimer);styleTimer=null;if(stylePlaying&&styleVisible&&!document.hidden)styleTimer=setInterval(()=>{const keys=Object.keys(looks);selectLook(keys[(keys.indexOf(currentLook)+1)%keys.length])},3400);stylePlay.textContent=stylePlaying?'Pause style preview':'Play style preview';stylePlay.setAttribute('aria-pressed',String(stylePlaying))}
+    styleButtons.forEach(button=>button.addEventListener('click',()=>{stylePlaying=false;syncStylePreview();selectLook(button.dataset.look)}));
+    stylePlay.addEventListener('click',()=>{stylePlaying=!stylePlaying;syncStylePreview()});
+    if('IntersectionObserver' in window)new IntersectionObserver(entries=>{styleVisible=entries[0].isIntersecting;syncStylePreview()},{threshold:.2}).observe(document.getElementById('looks'));else styleVisible=true;
+    document.addEventListener('visibilitychange',syncStylePreview);
+    const journey=document.querySelector('.journey'), journeyButtons=[...journey.querySelectorAll('.journey-step')], journeyRail=journey.querySelector('.journey-rail span'), journeyToggle=document.getElementById('journey-toggle'), reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+    let journeyIndex=0, journeyTimer=null, journeyPlaying=!reducedMotion.matches, journeyVisible=false;
+    function showJourneyStep(index){journeyIndex=index;journeyButtons.forEach((button,i)=>{if(i===index)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current')});document.getElementById('journey-count').textContent=String(index+1);document.getElementById('journey-label').textContent=journeyButtons[index].querySelector('strong').textContent;const progress=(index/3*100)+'%';if(window.matchMedia('(max-width:620px)').matches){journeyRail.style.height=progress;journeyRail.style.width='100%'}else{journeyRail.style.width=progress;journeyRail.style.height='100%'}}
+    function syncJourneyTimer(){clearInterval(journeyTimer);journeyTimer=null;if(journeyPlaying&&journeyVisible)journeyTimer=setInterval(()=>showJourneyStep((journeyIndex+1)%journeyButtons.length),2200);journeyToggle.textContent=journeyPlaying?'Pause animation':'Play animation';journeyToggle.setAttribute('aria-label',journeyPlaying?'Pause animated flow':'Play animated flow')}
+    journeyButtons.forEach((button,index)=>button.addEventListener('click',()=>{showJourneyStep(index);journeyPlaying=false;syncJourneyTimer()}));
+    journeyToggle.addEventListener('click',()=>{journeyPlaying=!journeyPlaying;syncJourneyTimer()});
+    if('IntersectionObserver' in window){new IntersectionObserver(entries=>{journeyVisible=entries[0].isIntersecting;syncJourneyTimer()},{threshold:.2}).observe(journey)}else{journeyVisible=true;syncJourneyTimer()}
+    document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInterval(journeyTimer);journeyTimer=null}else syncJourneyTimer()});
+    window.addEventListener('resize',()=>showJourneyStep(journeyIndex));
+    if(reducedMotion.addEventListener)reducedMotion.addEventListener('change',event=>{if(event.matches){journeyPlaying=false;syncJourneyTimer()}});
+    showJourneyStep(0);syncJourneyTimer();
+    Object.values(looks).forEach(look=>{const image=new Image();image.src=look.image});document.getElementById('year').textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
